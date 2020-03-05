@@ -85,13 +85,14 @@ def update(entity):
     print()
     print(entity)
     request = flask.request
-    # print(request)
-    # print (request.get_json)
-    content = json.loads(request.data)
-    print (content)
-    myWorld.set(entity, content)
-    # print(myWorld.get(entity))
-    # print(request.data)
+    print(request)
+    print (request.get_json)
+    content = request.get_json()
+    # print (content)
+    myWorld.set(entity, request.data)
+    print(myWorld.get(entity))
+    print(myWorld.get(entity))
+    print(request.data)
     # return 'JSON posted'
     print()
     print()
@@ -116,12 +117,19 @@ def world():
 def get_entity(entity):
     '''This is the GET version of the entity interface, return a representation of the entity'''
 
+    print("I AM HERE")
+    print(myWorld.get(entity))
+
     try:
+        new_world = myWorld.get(entity)
+
         print(entity)
         found_world = myWorld.get(2)
-
-        return found_world
+    
+        return new_world
     except:
+
+        print("mistake")
         return None
 
 @app.route("/clear", methods=['POST','GET'])

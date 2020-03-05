@@ -67,6 +67,7 @@ class ServerTestCase(unittest.TestCase):
         print(r)
         print(r.data)
         print(d)
+        print(str(r.data))
         print(type(d))
         print("AFTER")
         self.assertTrue(json.loads(utf8(r.data)) == d, "D != r.data")
