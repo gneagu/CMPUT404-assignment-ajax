@@ -10,7 +10,7 @@
    This program allows numerous clients to connect and draw on the
    same surface and share the drawing they have made with anyone who
    is currently on.
-
+ 
    The goal here is for you to understand the very basics of AJAX,
    learn a little about canvas, learn a little bit about the overhead
    of AJAX, learn about JSON and other technologies. Also you'll get

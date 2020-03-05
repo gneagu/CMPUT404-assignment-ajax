@@ -22,7 +22,7 @@
 
 
 import flask
-from flask import Flask, request
+from flask import Flask, request, redirect
 import json
 app = Flask(__name__)
 app.debug = True
@@ -73,6 +73,10 @@ def flask_post_json():
 
 @app.route("/")
 def hello():
+    # Code from https://flask.palletsprojects.com/en/1.0.x/api/#flask.redirect
+    redirect_url = '''http://127.0.0.1:5000/static/index.html'''
+    return flask.redirect(redirect_url, code=301)
+
     '''Return something coherent here.. perhaps redirect to /static/index.html '''
     return None
 
