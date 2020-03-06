@@ -38,15 +38,10 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
         if (xhr.readyState==4) {
             try {
                 if (xhr.status==200) {
-                    // console.log(xhr.data)
-                    console.log("IAM HERE");
-                    xhr.open('GET', url);
-                    xhr.send();
-                    console.log(xhr.responseText);
                     //XXX: parse some JSON from the request!
                     //XXX: Pass the data to the callback!
-                    
-                    callback()
+                    console.log("Got DATA")
+                    console.log(xhr.responseText)
                 }
             } 
             catch(e) {
@@ -54,21 +49,18 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
             }
         }
     };
-    //Will go here when posting
-    console.log(url)
-    console.log("IAM HERE");
-    xhr.open('GET', url);
-    xhr.send();
-    console.log(xhr.responseText);
     //XXX: POST to a URL
     //XXX: set the mimetype and the accept headers!
     // Remember to use application/json !
+    xhr.open("POST", "/world", true);
+    xhr.send(null);
+    console.log("Made requet")
 }
 
 
 world = {};
 
-//RRR: TODO Make this prettier!
+//XXX: TODO Make this prettier!
 function drawCircle(context,entity) {
     with(context) {
         beginPath();              
@@ -150,15 +142,7 @@ function getPosition(e) {
 function addEntity(entity, data) {
     world[entity] = data;
     drawNextFrame(); // (but should we?)
-    console.log(entity) //WIll be entity/<entity> and data will be the body
-    console.log(data)
     //XXX: Send a XHTML Request that updates the entity you just  modified!
-    url = host + "/entity/" + entity
-    // console.log(host)
-    // console.log(entity)
-    // url = 
-    // sendJSONXMLHTTPRequest(url, objects, callback)
-    sendJSONXMLHTTPRequest(url, data, {})
 
 }
 
@@ -266,7 +250,7 @@ mouse = (function() {
 })();
 
 // Add the application specific mouse listeners!
-//RRR: TODO Make these prettier!
+//XXX: TODO Make these prettier!
 mouse.mousedowners.push(function(x,y,clicked,e) {
     addEntityWithoutName({'x':x,'y':y,'colour':'blue'});
 });
@@ -283,11 +267,10 @@ mouse.mousedraggers.push(function(x,y,clicked,e) {
 
 function update() {
     //XXX: TODO Get the world from the webservice using a XMLHTTPRequest
-    // console.log("I have updated")
-    console.log("SADASDASD " + host)
-    url = host +"/world"
+    url = host + "\world"
+    sendJSONXMLHTTPRequest(url, null, drawFrame());
 
-    sendJSONXMLHTTPRequest(url, {}, drawFrame());
+    // drawFrame();
 }
 
 // 30 frames per second
