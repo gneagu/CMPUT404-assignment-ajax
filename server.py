@@ -126,9 +126,10 @@ def get_entity(entity):
 @app.route("/clear", methods=['POST','GET'])
 def clear():
     myWorld.clear()
+    world = myWorld.world()
 
 
-    return Response(status=200, mimetype='application/json')
+    return Response(json.dumps(world), status=200, mimetype='application/json')
 
     '''Clear the world out!'''
 
