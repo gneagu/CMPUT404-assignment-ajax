@@ -40,8 +40,20 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
                 if (xhr.status==200) {
                     //XXX: parse some JSON from the request!
                     //XXX: Pass the data to the callback!
-                    console.log("Got DATA")
-                    console.log(xhr.responseText)
+                    if (objects !== null) {
+                        console.log("IN HER")
+                        json = xhr.responseText
+                        console.log(json)
+                        // data = JSON.parse(json)
+                        // console.log(xhr.responseText)
+                        // callback(data)
+                    } else {
+                        // callback(objects)
+                        console.log(xhr.responseText)
+                        console.log("ELSE")
+                        
+                    }
+
                 }
             } 
             catch(e) {
@@ -52,15 +64,25 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
     //XXX: POST to a URL
     //XXX: set the mimetype and the accept headers!
     // Remember to use application/json !
-    xhr.open("POST", "/world", true);
-    xhr.send(null);
-    console.log("Made requet")
+    xhr.open("POST", url, true);
+    xhr.overrideMimeType( "application/json")
+
+    if (objects !== null) {
+        xhr.setRequestHeader("Content-type", "application/json");
+        console.log("CLICKED");
+        console.log(Object.getOwnPropertyNames(objects))
+        xhr.send(JSON.stringify(objects));
+
+    } else {
+        xhr.send(objects);
+
+    }
 }
 
 
 world = {};
 
-//XXX: TODO Make this prettier!
+//RRR: TODO Make this prettier!
 function drawCircle(context,entity) {
     with(context) {
         beginPath();              
@@ -143,6 +165,9 @@ function addEntity(entity, data) {
     world[entity] = data;
     drawNextFrame(); // (but should we?)
     //XXX: Send a XHTML Request that updates the entity you just  modified!
+    url = "/entity/" + entity
+    sendJSONXMLHTTPRequest(url, data, drawFrame());
+
 
 }
 
@@ -250,7 +275,7 @@ mouse = (function() {
 })();
 
 // Add the application specific mouse listeners!
-//XXX: TODO Make these prettier!
+//RRR: TODO Make these prettier!
 mouse.mousedowners.push(function(x,y,clicked,e) {
     addEntityWithoutName({'x':x,'y':y,'colour':'blue'});
 });

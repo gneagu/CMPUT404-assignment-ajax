@@ -83,6 +83,7 @@ def update(entity):
     request = flask.request
     content = request.get_json()
     myWorld.set(entity, json.loads(request.data))
+    print("ACTUALLY HAVE BEEN UPDATED")
 
     # Code from https://stackoverflow.com/a/26961568
     return Response(request.data, status=200, mimetype='application/json')
@@ -107,7 +108,7 @@ def update(entity):
 def world():
     '''you should probably return the world here'''
     world = myWorld.world()
-    print("I HAVE BEEN UPDATED")
+    # print("I HAVE BEEN UPDATED")
     # Code from https://stackoverflow.com/a/26961568
     return Response(json.dumps(world), status=200, mimetype='application/json')
 
@@ -120,7 +121,6 @@ def get_entity(entity):
         return new_world
     except:
 
-        print("mistake")
         return None
 
 @app.route("/clear", methods=['POST','GET'])
