@@ -16,12 +16,6 @@
    of AJAX, learn about JSON and other technologies. Also you'll get
    to learn about the flask micro-framework.
 
-** Collaboration
-   - You may consult with others but the submission should be your
-     own source code.
-   - Collaboration must be documented in the README.md file
-   - Any external source code must be referenced and documented in
-     the README.md file
 
 ** User Stories
    - As a web browser user I want to draw on the canvas
@@ -38,15 +32,15 @@
 
 ** Requirements
 
-   - [ ] Implement the AJAX Javascript parts in the HTML file static/index.htm
-   - [ ] Implement the webservice root
-   - [ ] Implement the webservice /entity/entity-name POST/PUT/GET API
-   - [ ] Implement the webservice /world API
-   - [ ] Implement the webservice /clear API
-   - [ ] Use JSON or XML to communicate (no plain text!)
-   - [ ] The webservice can pass all the tests in freetests.py
-   - [ ] The webservice can pass all the tests in not-free-tests.py (you only have part of this one, I reserve the right to add tests)
-   - [ ] The webservice can serve /static/index.html
+   - [x] Implement the AJAX Javascript parts in the HTML file static/index.htm
+   - [x] Implement the webservice root
+   - [x] Implement the webservice /entity/entity-name POST/PUT/GET API
+   - [x] Implement the webservice /world API
+   - [x] Implement the webservice /clear API
+   - [x] Use JSON or XML to communicate (no plain text!)
+   - [x] The webservice can pass all the tests in freetests.py
+   - [x] The webservice can pass all the tests in not-free-tests.py (you only have part of this one, I reserve the right to add tests)
+   - [x] The webservice can serve /static/index.html
    - [ ] static/index.html displays the current state of the webservice
    - [ ] static/index.html responds to clicks within 100ms on average
    - [ ] Make static/index.html images look nice
@@ -57,12 +51,6 @@
          (so http://127.0.0.1:5000/static/index.html should work and http://localhost:5000/static/index.html should work)
 
  
-** Restrictions
-   - [ ] Use Python 3.6
-   - [ ] Must run in the VM (Ubuntu 18.10)
-   - [ ] License your code properly (use an OSI approved license)
-     - Put your name on it!
-
 ** Submission Instructions
    - Fork my repository from github
      https://github.com/abramhindle/CMPUT404-assignment-ajax
@@ -72,14 +60,6 @@
      - Line 1: the git URL
      - Line 2: Your CCID
 
-   - To mark your assignment I should be able to type:
-     git clone http://github.com/youruserid/thisassignment.git yourccid
-     cd yourccid
-     python freetests.py
-
-   - Marks will be deducted if I cannot successfully do this.
-     
-   - Marks will be deducted for using library code that does the assignment
 
 ** Marking
    - 3 marks for passing all of the tests

@@ -38,8 +38,12 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
         if (xhr.readyState==4) {
             try {
                 if (xhr.status==200) {
+                    // console.log(xhr.data)
+                    console.log("IAM HERE");
                     //XXX: parse some JSON from the request!
                     //XXX: Pass the data to the callback!
+                    
+                    callback()
                 }
             } 
             catch(e) {
@@ -47,6 +51,7 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
             }
         }
     };
+    console.log("posting")
     //XXX: POST to a URL
     //XXX: set the mimetype and the accept headers!
     // Remember to use application/json !
@@ -55,7 +60,7 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
 
 world = {};
 
-//XXX: TODO Make this prettier!
+//RRR: TODO Make this prettier!
 function drawCircle(context,entity) {
     with(context) {
         beginPath();              
@@ -137,7 +142,14 @@ function getPosition(e) {
 function addEntity(entity, data) {
     world[entity] = data;
     drawNextFrame(); // (but should we?)
+    console.log(entity) //WIll be entity/<entity> and data will be the body
+    console.log(data)
     //XXX: Send a XHTML Request that updates the entity you just  modified!
+    url = host + "/entity/" + entity
+    console.log(host)
+    console.log(entity)
+    // url = 
+    // sendJSONXMLHTTPRequest(url, objects, callback)
 
 }
 
@@ -245,7 +257,7 @@ mouse = (function() {
 })();
 
 // Add the application specific mouse listeners!
-//XXX: TODO Make these prettier!
+//RRR: TODO Make these prettier!
 mouse.mousedowners.push(function(x,y,clicked,e) {
     addEntityWithoutName({'x':x,'y':y,'colour':'blue'});
 });
@@ -262,7 +274,10 @@ mouse.mousedraggers.push(function(x,y,clicked,e) {
 
 function update() {
     //XXX: TODO Get the world from the webservice using a XMLHTTPRequest
-    drawFrame();
+    // console.log("I have updated")
+    url = "/world"
+
+    sendJSONXMLHTTPRequest(url, {}, drawFrame());
 }
 
 // 30 frames per second

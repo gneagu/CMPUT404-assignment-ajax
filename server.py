@@ -88,14 +88,28 @@ def update(entity):
     return Response(request.data, status=200, mimetype='application/json')
     '''update the entities via this interface'''
 
+# @app.route("/entity/<entity>", methods=['POST','PUT'])
+# def update(entity):
+#     request = flask.request
+#     content = request.get_json()
+#     data =  json.loads(request.data)
+#     # print(data)
+#     # print(entity)
+#     # print(type(data))
+#     # myWorld.set(entity, json.loads(request.data))
+#     (x,y) = json.loads(request.data)
+#     myWorld.update(entity, x, y)
+#     # Code from https://stackoverflow.com/a/26961568
+#     return Response(request.data, status=200, mimetype='application/json')
+#     '''update the entities via this interface'''
+
 @app.route("/world", methods=['POST','GET'])    
 def world():
     '''you should probably return the world here'''
     world = myWorld.world()
-
+    print("I HAVE BEEN UPDATED")
     # Code from https://stackoverflow.com/a/26961568
     return Response(json.dumps(world), status=200, mimetype='application/json')
-
 
 
 @app.route("/entity/<entity>")    
