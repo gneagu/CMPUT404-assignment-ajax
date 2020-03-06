@@ -40,6 +40,9 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
                 if (xhr.status==200) {
                     // console.log(xhr.data)
                     console.log("IAM HERE");
+                    xhr.open('GET', url);
+                    xhr.send();
+                    console.log(xhr.responseText);
                     //XXX: parse some JSON from the request!
                     //XXX: Pass the data to the callback!
                     
@@ -51,7 +54,12 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
             }
         }
     };
-    console.log("posting")
+    //Will go here when posting
+    console.log(url)
+    console.log("IAM HERE");
+    xhr.open('GET', url);
+    xhr.send();
+    console.log(xhr.responseText);
     //XXX: POST to a URL
     //XXX: set the mimetype and the accept headers!
     // Remember to use application/json !
@@ -146,10 +154,11 @@ function addEntity(entity, data) {
     console.log(data)
     //XXX: Send a XHTML Request that updates the entity you just  modified!
     url = host + "/entity/" + entity
-    console.log(host)
-    console.log(entity)
+    // console.log(host)
+    // console.log(entity)
     // url = 
     // sendJSONXMLHTTPRequest(url, objects, callback)
+    sendJSONXMLHTTPRequest(url, data, {})
 
 }
 
@@ -275,7 +284,8 @@ mouse.mousedraggers.push(function(x,y,clicked,e) {
 function update() {
     //XXX: TODO Get the world from the webservice using a XMLHTTPRequest
     // console.log("I have updated")
-    url = "/world"
+    console.log("SADASDASD " + host)
+    url = host +"/world"
 
     sendJSONXMLHTTPRequest(url, {}, drawFrame());
 }
