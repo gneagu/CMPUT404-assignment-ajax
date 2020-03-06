@@ -22,7 +22,7 @@
 
 
 import flask
-from flask import Flask, request, redirect, Response
+from flask import Flask, request, redirect, Response, jsonify
 import json
 app = Flask(__name__)
 app.debug = True
@@ -80,52 +80,45 @@ def hello():
 
 @app.route("/entity/<entity>", methods=['POST','PUT'])
 def update(entity):
-    print()
-    print()
-    print()
-    print(entity)
     request = flask.request
-    print(request)
-    print (request.get_json)
     content = request.get_json()
-    # print (content)
-    myWorld.set(entity, request.data)
-    print(myWorld.get(entity))
-    print(myWorld.get(entity))
-    print(request.data)
-    # return 'JSON posted'
-    print()
-    print()
-    print()
-    print()
-    print()
-    from flask import Response
+    myWorld.set(entity, json.loads(request.data))
     return Response(request.data, status=200, mimetype='application/json')
     '''update the entities via this interface'''
-    # s = 
-
-    # return request.data
 
 @app.route("/world", methods=['POST','GET'])    
 def world():
+    world = myWorld.world()
+    # x = str(world)
+    # print(x)
+    x = Response(world, status=200, mimetype='application/json')
+    # print(x)
+    # print(x.data)
+    print(world)
+    print(type(world))
 
-    print()
+    for i in world.items():
+        print(type(i))
+        print(i)
+
+    response = app.response_class(
+    response=json.dumps(world),
+    status=200,
+    mimetype='application/json'
+    )
     '''you should probably return the world here'''
-    return None
+    # return json.dumps(world)
+    # return json.dumps(world, ensure_ascii=False)
+    
+    return Response(json.dumps(world), status=200, mimetype='application/json')
+
+
 
 @app.route("/entity/<entity>")    
 def get_entity(entity):
     '''This is the GET version of the entity interface, return a representation of the entity'''
-
-    print("I AM HERE")
-    print(myWorld.get(entity))
-
     try:
-        new_world = myWorld.get(entity)
-
-        print(entity)
-        found_world = myWorld.get(2)
-    
+        new_world = myWorld.get(entity)    
         return new_world
     except:
 
@@ -134,8 +127,12 @@ def get_entity(entity):
 
 @app.route("/clear", methods=['POST','GET'])
 def clear():
+    myWorld.clear()
+
+
+    return Response(status=200, mimetype='application/json')
+
     '''Clear the world out!'''
-    return None
 
 if __name__ == "__main__":
     app.run()

@@ -63,13 +63,6 @@ class ServerTestCase(unittest.TestCase):
             self.assertTrue(rd[key] == d[key], "KEY %s " % key)
         r = self.app.get(('/entity/%s' % v))
         self.assertTrue(r.status_code == 200, "Code not 200!")
-        print("IN FREETEST")
-        print(r)
-        print(r.data)
-        print(d)
-        print(str(r.data))
-        print(type(d))
-        print("AFTER")
         self.assertTrue(json.loads(utf8(r.data)) == d, "D != r.data")
 
         
