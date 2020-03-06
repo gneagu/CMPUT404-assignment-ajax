@@ -83,21 +83,21 @@ class ServerTestCase(unittest.TestCase):
             self.world[v] = {'x':x,'y':y,'colour':c}
         return self.world
 
-    # def testWorld(self):
-    #     self.populateWorld()
-    #     r = self.app.post('/clear')
-    #     self.assertTrue(r.status_code == 200, "Code not 200!")
-    #     for key in self.world:
-    #         r = self.app.put(('/entity/%s' % key),
-    #                          data=json.dumps(self.world[key]))
-    #         self.assertTrue(r.status_code == 200, "Code not 200!")
-    #         j = json.loads(utf8(r.data))
-    #         self.assertTrue(len(j.keys()) >= 3,"JSON lacking keys! %s" % j.keys())
-    #     r = self.app.get('/world')
-    #     self.assertTrue(r.status_code == 200, "Code not 200!")
-    #     newworld = json.loads(utf8(r.data))
-    #     for key in self.world:
-    #         self.assertTrue(self.world[key]  == newworld[key], "Key %s" % key)
+    def testWorld(self):
+        self.populateWorld()
+        r = self.app.post('/clear')
+        self.assertTrue(r.status_code == 200, "Code not 200!")
+        for key in self.world:
+            r = self.app.put(('/entity/%s' % key),
+                             data=json.dumps(self.world[key]))
+            self.assertTrue(r.status_code == 200, "Code not 200!")
+            j = json.loads(utf8(r.data))
+            self.assertTrue(len(j.keys()) >= 3,"JSON lacking keys! %s" % j.keys())
+        r = self.app.get('/world')
+        self.assertTrue(r.status_code == 200, "Code not 200!")
+        newworld = json.loads(utf8(r.data))
+        for key in self.world:
+            self.assertTrue(self.world[key]  == newworld[key], "Key %s" % key)
 
 
         
