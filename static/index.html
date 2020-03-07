@@ -40,21 +40,8 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
                 if (xhr.status==200) {
                     //XXX: parse some JSON from the request!
                     //XXX: Pass the data to the callback!
-                    if (objects !== null) {
-                        console.log("IN HER")
-                        json = xhr.responseText
-                        console.log(json)
-                        
-                        // data = JSON.parse(json)
-                        // console.log(xhr.responseText)
-                        // callback(data)
-                    } else {
-                        // callback(objects)
-                        console.log(xhr.responseText)
-                        console.log("ELSE")
-                        
-                    }
-
+                    console.log("Got DATA")
+                    console.log(xhr.responseText)
                 }
             } 
             catch(e) {
@@ -65,20 +52,82 @@ function sendJSONXMLHTTPRequest(url, objects, callback) {
     //XXX: POST to a URL
     //XXX: set the mimetype and the accept headers!
     // Remember to use application/json !
+
     xhr.open("POST", url, true);
-    xhr.overrideMimeType( "application/json")
 
     if (objects !== null) {
-        xhr.setRequestHeader("Content-type", "application/json");
-        console.log("CLICKED");
-        console.log(Object.getOwnPropertyNames(objects))
-        xhr.send(JSON.stringify(objects));
+        xhr.overrideMimeType( "application/json")
 
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send(JSON.stringify(objects));
+        
     } else {
-        xhr.send(objects);
+        xhr.overrideMimeType( "text/plain;charset=UTF-8")
+
+        xhr.setRequestHeader("Content-type", "text/plain;charset=UTF-8");
+        xhr.send(null);
 
     }
+
+    // console.log(url)
+    // xhr.open("POST", url, true);
+    // xhr.send(null);
+    // console.log("Made requet")
 }
+
+// function sendJSONXMLHTTPRequest(url, objects, callback) {
+//     var xhr = new XMLHttpRequest();
+//     xhr.onreadystatechange = function () {
+//         if (xhr.readyState==4) {
+//             try {
+//                 if (xhr.status==200) {
+//                     console.log(xhr.responseText)
+
+//                     //XXX: parse some JSON from the request!
+//                     //XXX: Pass the data to the callback!
+//                     if (objects !== null) {
+//                         console.log("IN HER")
+//                         // json = xhr.responseText
+//                         // console.log(json)
+//                         console.log(xhr.responseText)
+                        
+//                         // data = JSON.parse(json)
+//                         // console.log(xhr.responseText)
+//                         // callback(data)
+//                     } else {
+//                         // callback(objects)
+//                         console.log(xhr.responseText)
+//                         console.log("ELSE")
+                        
+//                     }
+
+//                 }
+//             } 
+//             catch(e) {
+//                 alert('Error: ' + e.name);
+//             }
+//         }
+//     };
+//     //XXX: POST to a URL
+//     //XXX: set the mimetype and the accept headers!
+//     // Remember to use application/json !
+//     xhr.open("POST", url, true);
+
+//     if (objects !== null) {
+//         // xhr.overrideMimeType( "application/json")
+//         xhr.send(null);
+
+//         // xhr.setRequestHeader("Content-type", "application/json");
+//         // xhr.send(JSON.stringify(objects));
+        
+//     } else {
+//         xhr.overrideMimeType( "text/plain;charset=UTF-8")
+
+//         xhr.setRequestHeader("Content-type", "text/plain;charset=UTF-8");
+//         xhr.send(null);
+
+//     }
+// }
 
 
 world = {};
@@ -293,10 +342,9 @@ mouse.mousedraggers.push(function(x,y,clicked,e) {
 
 function update() {
     //XXX: TODO Get the world from the webservice using a XMLHTTPRequest
-    url = host + "\world"
+    url = "/world"
     sendJSONXMLHTTPRequest(url, null, drawFrame());
 
-    // drawFrame();
 }
 
 // 30 frames per second
